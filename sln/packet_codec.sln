@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "packet_codec", "packet_codec.vcxproj", "{24C612BC-BDD0-45CF-984C-F4B91917E291}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		dll_debug|Win32 = dll_debug|Win32
+		dll_debug|x64 = dll_debug|x64
+		dll_release|Win32 = dll_release|Win32
+		dll_release|x64 = dll_release|x64
+		lib_debug|Win32 = lib_debug|Win32
+		lib_debug|x64 = lib_debug|x64
+		lib_release|Win32 = lib_release|Win32
+		lib_release|x64 = lib_release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{24C612BC-BDD0-45CF-984C-F4B91917E291}.dll_debug|Win32.ActiveCfg = dll_debug|Win32
+		{24C612BC-BDD0-45CF-984C-F4B91917E291}.dll_debug|Win32.Build.0 = dll_debug|Win32
+		{24C612BC-BDD0-45CF-984C-F4B91917E291}.dll_debug|x64.ActiveCfg = dll_debug|x64
+		{24C612BC-BDD0-45CF-984C-F4B91917E291}.dll_debug|x64.Build.0 = dll_debug|x64
+		{24C612BC-BDD0-45CF-984C-F4B91917E291}.dll_release|Win32.ActiveCfg = dll_release|Win32
+		{24C612BC-BDD0-45CF-984C-F4B91917E291}.dll_release|Win32.Build.0 = dll_release|Win32
+		{24C612BC-BDD0-45CF-984C-F4B91917E291}.dll_release|x64.ActiveCfg = dll_release|x64
+		{24C612BC-BDD0-45CF-984C-F4B91917E291}.dll_release|x64.Build.0 = dll_release|x64
+		{24C612BC-BDD0-45CF-984C-F4B91917E291}.lib_debug|Win32.ActiveCfg = lib_debug|Win32
+		{24C612BC-BDD0-45CF-984C-F4B91917E291}.lib_debug|Win32.Build.0 = lib_debug|Win32
+		{24C612BC-BDD0-45CF-984C-F4B91917E291}.lib_debug|x64.ActiveCfg = lib_debug|x64
+		{24C612BC-BDD0-45CF-984C-F4B91917E291}.lib_debug|x64.Build.0 = lib_debug|x64
+		{24C612BC-BDD0-45CF-984C-F4B91917E291}.lib_release|Win32.ActiveCfg = lib_release|Win32
+		{24C612BC-BDD0-45CF-984C-F4B91917E291}.lib_release|Win32.Build.0 = lib_release|Win32
+		{24C612BC-BDD0-45CF-984C-F4B91917E291}.lib_release|x64.ActiveCfg = lib_release|x64
+		{24C612BC-BDD0-45CF-984C-F4B91917E291}.lib_release|x64.Build.0 = lib_release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
