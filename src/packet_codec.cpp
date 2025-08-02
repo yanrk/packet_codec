@@ -171,12 +171,12 @@ static bool packet_divide(const uint8_t * src_data, uint32_t src_size, uint32_t 
 {
     if (nullptr == src_data || 0 == src_size)
     {
-        return (false);
+        return false;
     }
 
     if (max_block_size <= sizeof(block_t))
     {
-        return (false);
+        return false;
     }
 
     uint32_t max_block_bytes = static_cast<uint32_t>(max_block_size - sizeof(block_t));
@@ -213,7 +213,7 @@ static bool packet_divide(const uint8_t * src_data, uint32_t src_size, uint32_t 
 
     ++group_index;
 
-    return (true);
+    return true;
 }
 
 static bool insert_group_block(const void * data, uint32_t size, groups_t & groups, uint32_t max_delay_microseconds)
@@ -223,17 +223,17 @@ static bool insert_group_block(const void * data, uint32_t size, groups_t & grou
 
     if (sizeof(block) + block.block_bytes != size)
     {
-        return (false);
+        return false;
     }
 
     if (block.block_index >= block.block_count || block.block_pos + block.block_bytes > block.group_bytes)
     {
-        return (false);
+        return false;
     }
 
     if (block.group_index < groups.min_group_index)
     {
-        return (false);
+        return false;
     }
 
     groups.new_group_index = block.group_index;
@@ -267,12 +267,12 @@ static bool insert_group_block(const void * data, uint32_t size, groups_t & grou
     {
         if (block.group_index != group_head.group_index || block.group_bytes != group_head.group_bytes || block.block_count != group_head.need_block_count)
         {
-            return (false);
+            return false;
         }
 
         if (group_body.block_bitmap[block.block_index >> 3] & (1 << (block.block_index & 7)))
         {
-            return (false);
+            return false;
         }
 
         group_head.recv_block_count += 1;
@@ -281,7 +281,7 @@ static bool insert_group_block(const void * data, uint32_t size, groups_t & grou
         memcpy(&group_body.group_data[block.block_pos], reinterpret_cast<const uint8_t *>(data) + sizeof(block), size - sizeof(block));
     }
 
-    return (true);
+    return true;
 }
 
 static void remove_expired_blocks(groups_t & groups)
@@ -302,13 +302,13 @@ static bool packet_unify(const void * data, uint32_t size, groups_t & groups, st
     {
         if (!insert_group_block(data, size, groups, max_delay_microseconds))
         {
-            return (false);
+            return false;
         }
 
         const group_t & group = groups.group_items[groups.new_group_index];
         if (group.head.recv_block_count != group.head.need_block_count && groups.new_group_index < groups.min_group_index + 3)
         {
-            return (false);
+            return false;
         }
     }
 
@@ -352,7 +352,7 @@ static bool packet_unify(const void * data, uint32_t size, groups_t & groups, st
 
     remove_expired_blocks(groups);
 
-    return (new_dst_list_size > old_dst_list_size);
+    return new_dst_list_size > old_dst_list_size;
 }
 
 class PacketDividerImpl
@@ -392,7 +392,7 @@ PacketDividerImpl::~PacketDividerImpl()
 
 bool PacketDividerImpl::encode(const uint8_t * src_data, uint32_t src_size, std::list<std::vector<uint8_t>> & dst_list)
 {
-    return (packet_divide(src_data, src_size, m_max_block_size, m_group_index, dst_list));
+    return packet_divide(src_data, src_size, m_max_block_size, m_group_index, dst_list);
 }
 
 void PacketDividerImpl::reset()
@@ -439,7 +439,7 @@ PacketUnifierImpl::~PacketUnifierImpl()
 
 bool PacketUnifierImpl::decode(const uint8_t * src_data, uint32_t src_size, std::list<std::vector<uint8_t>> & dst_list)
 {
-    return (packet_unify(src_data, src_size, m_groups, dst_list, m_max_delay_microseconds, m_fault_tolerance_rate));
+    return packet_unify(src_data, src_size, m_groups, dst_list, m_max_delay_microseconds, m_fault_tolerance_rate);
 }
 
 void PacketUnifierImpl::reset()
@@ -462,7 +462,7 @@ bool PacketDivider::init(uint32_t max_block_size)
 {
     exit();
 
-    return (nullptr != (m_divider = new PacketDividerImpl(max_block_size)));
+    return nullptr != (m_divider = new PacketDividerImpl(max_block_size));
 }
 
 void PacketDivider::exit()
@@ -476,7 +476,7 @@ void PacketDivider::exit()
 
 bool PacketDivider::encode(const uint8_t * src_data, uint32_t src_size, std::list<std::vector<uint8_t>> & dst_list)
 {
-    return (nullptr != m_divider && m_divider->encode(src_data, src_size, dst_list));
+    return nullptr != m_divider && m_divider->encode(src_data, src_size, dst_list);
 }
 
 void PacketDivider::reset()
@@ -502,7 +502,7 @@ bool PacketUnifier::init(uint32_t expire_millisecond, double fault_tolerance_rat
 {
     exit();
 
-    return (nullptr != (m_unifier = new PacketUnifierImpl(expire_millisecond * 1000, fault_tolerance_rate)));
+    return nullptr != (m_unifier = new PacketUnifierImpl(expire_millisecond * 1000, fault_tolerance_rate));
 }
 
 void PacketUnifier::exit()
@@ -516,7 +516,7 @@ void PacketUnifier::exit()
 
 bool PacketUnifier::decode(const uint8_t * src_data, uint32_t src_size, std::list<std::vector<uint8_t>> & dst_list)
 {
-    return (nullptr != m_unifier && m_unifier->decode(src_data, src_size, dst_list));
+    return nullptr != m_unifier && m_unifier->decode(src_data, src_size, dst_list);
 }
 
 void PacketUnifier::reset()

@@ -4,7 +4,7 @@
  * Email       : yanrkchina@163.com
  * Version     : 1.0
  * History     :
- * Copyright(C): RAYVISION
+ * Copyright(C): 2025
  ********************************************************/
 
 #ifdef _MSC_VER
@@ -52,12 +52,12 @@ int main()
     PacketDivider divider;
     if (!divider.init(1100))
     {
-        return (1);
+        return 1;
     }
 
     if (!divider.encode(&src_data[0], static_cast<uint32_t>(src_data.size()), src_list))
     {
-        return (2);
+        return 2;
     }
 
     int32_t s2 = 0;
@@ -100,7 +100,7 @@ int main()
     PacketUnifier unifier;
     if (!unifier.init(30))
     {
-        return (3);
+        return 3;
     }
 
     for (std::list<std::vector<uint8_t>>::const_iterator iter = src_list.begin(); src_list.end() != iter; ++iter)
@@ -111,7 +111,7 @@ int main()
 
     if (1 != dst_list.size())
     {
-        return (4);
+        return 4;
     }
 
     int32_t s4 = 0;
@@ -123,10 +123,10 @@ int main()
 
     if (dst_list.front() != src_data)
     {
-        return (5);
+        return 5;
     }
 
     std::cout << "ok" << std::endl;
 
-    return (0);
+    return 0;
 }
